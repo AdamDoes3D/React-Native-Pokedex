@@ -1,32 +1,152 @@
-import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import * as React from "react";
+import { ImageBackground, StyleSheet, Image } from "react-native";
+import { FlatGrid } from "react-native-super-grid";
+import DexView from "../components/DexView";
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import EditScreenInfo from "../components/EditScreenInfo";
+import { Text, View } from "../components/Themed";
+import { Pokemon } from "../interfaces/Pokemon";
 
-export default function TabTwoScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
-    </View>
-  );
+export default function Example() {
+  const [items, setItems] = React.useState<Pokemon[]>([
+    {
+      name: "Bulbasaur",
+      id: 1,
+      types: { primary: "Grass", secondary: "Poison" },
+      stats: [
+        { name: "HP", value: 45 },
+        { name: "Attack", value: 49 },
+        { name: "Defense", value: 49 },
+        { name: "Sp. Atk", value: 65 },
+        { name: "Sp. Def", value: 65 },
+        { name: "Speed", value: 45 },
+      ],
+      spriteUrl:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+    },
+    {
+      name: "Ivysaur",
+      id: 1,
+      types: { primary: "Grass", secondary: "Poison" },
+      stats: [
+        { name: "HP", value: 45 },
+        { name: "Attack", value: 49 },
+        { name: "Defense", value: 49 },
+        { name: "Sp. Atk", value: 65 },
+        { name: "Sp. Def", value: 65 },
+        { name: "Speed", value: 45 },
+      ],
+      spriteUrl:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png",
+    },
+    {
+      name: "Venusaur",
+      id: 1,
+      types: { primary: "Grass", secondary: "Poison" },
+      stats: [
+        { name: "HP", value: 45 },
+        { name: "Attack", value: 49 },
+        { name: "Defense", value: 49 },
+        { name: "Sp. Atk", value: 65 },
+        { name: "Sp. Def", value: 65 },
+        { name: "Speed", value: 45 },
+      ],
+      spriteUrl:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+    },
+    {
+      name: "Charmander",
+      id: 1,
+      types: { primary: "Grass", secondary: "Poison" },
+      stats: [
+        { name: "HP", value: 45 },
+        { name: "Attack", value: 49 },
+        { name: "Defense", value: 49 },
+        { name: "Sp. Atk", value: 65 },
+        { name: "Sp. Def", value: 65 },
+        { name: "Speed", value: 45 },
+      ],
+      spriteUrl:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+    },
+    {
+      name: "Charmeleon",
+      id: 1,
+      types: { primary: "Grass", secondary: "Poison" },
+      stats: [
+        { name: "HP", value: 45 },
+        { name: "Attack", value: 49 },
+        { name: "Defense", value: 49 },
+        { name: "Sp. Atk", value: 65 },
+        { name: "Sp. Def", value: 65 },
+        { name: "Speed", value: 45 },
+      ],
+      spriteUrl:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
+    },
+    {
+      name: "Charizard",
+      id: 1,
+      types: { primary: "Grass", secondary: "Poison" },
+      stats: [
+        { name: "HP", value: 45 },
+        { name: "Attack", value: 49 },
+        { name: "Defense", value: 49 },
+        { name: "Sp. Atk", value: 65 },
+        { name: "Sp. Def", value: 65 },
+        { name: "Speed", value: 45 },
+      ],
+      spriteUrl:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
+    },
+    {
+      name: "Squirtle",
+      id: 1,
+      types: { primary: "Grass", secondary: "Poison" },
+      stats: [
+        { name: "HP", value: 45 },
+        { name: "Attack", value: 49 },
+        { name: "Defense", value: 49 },
+        { name: "Sp. Atk", value: 65 },
+        { name: "Sp. Def", value: 65 },
+        { name: "Speed", value: 45 },
+      ],
+      spriteUrl:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png",
+    },
+    {
+      name: "Wartortle",
+      id: 1,
+      types: { primary: "Grass", secondary: "Poison" },
+      stats: [
+        { name: "HP", value: 45 },
+        { name: "Attack", value: 49 },
+        { name: "Defense", value: 49 },
+        { name: "Sp. Atk", value: 65 },
+        { name: "Sp. Def", value: 65 },
+        { name: "Speed", value: 45 },
+      ],
+      spriteUrl:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/8.png",
+    },
+    {
+      name: "Blastoise",
+      id: 1,
+      types: { primary: "Grass", secondary: "Poison" },
+      stats: [
+        { name: "HP", value: 45 },
+        { name: "Attack", value: 49 },
+        { name: "Defense", value: 49 },
+        { name: "Sp. Atk", value: 65 },
+        { name: "Sp. Def", value: 65 },
+        { name: "Speed", value: 45 },
+      ],
+      spriteUrl:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png",
+    },
+  ]);
+
+  return <DexView></DexView>;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
+const styles = StyleSheet.create({});
