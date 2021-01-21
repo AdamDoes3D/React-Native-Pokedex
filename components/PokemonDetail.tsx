@@ -1,12 +1,34 @@
 import React from "react";
-import { StyleSheet, Image } from "react-native";
+import { StyleSheet, Image, Dimensions } from "react-native";
 import { Pokemon } from "../interfaces/Pokemon";
 import { Text, View } from "./Themed";
 import * as Progress from "react-native-progress";
 import TypeDetail from "./Types";
 import GenerationGallery from "./ImagesByGeneration";
+import { TabView, SceneMap } from "react-native-tab-view";
+
+const FirstRoute = () => (
+  <View style={[styles.scene, { backgroundColor: "#ff4081" }]} />
+);
+
+const SecondRoute = () => (
+  <View style={[styles.scene, { backgroundColor: "#673ab7" }]} />
+);
+
+const initialLayout = { width: Dimensions.get("window").width };
 
 export default function PokemonDetail({ pokemon }: { pokemon: Pokemon }) {
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    { key: "first", title: "First" },
+    { key: "second", title: "Second" },
+  ]);
+
+  const renderScene = SceneMap({
+    first: FirstRoute,
+    second: SecondRoute,
+  });
+
   const statColors = [
     "#FF0000", //hp
     "#F08030", //attack
@@ -60,7 +82,7 @@ export default function PokemonDetail({ pokemon }: { pokemon: Pokemon }) {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       <Text style={styles.name}>
         {toTitleCase(pokemon.name)} {"#" + String(pokemon.id).padStart(3, "0")}
       </Text>
@@ -73,6 +95,12 @@ export default function PokemonDetail({ pokemon }: { pokemon: Pokemon }) {
         />
         {/* <GenerationGallery pokemon={pokemon} /> */}
       </View>
+      {/* <TabView
+          navigationState={{ index, routes }}
+          renderScene={renderScene}
+          onIndexChange={setIndex}
+          initialLayout={initialLayout}
+        /> */}
       <TypeDetail pokemon={pokemon} />
       {getAbilities()}
       {getStats()}
@@ -119,5 +147,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 2,
     margin: 2,
+  },
+  scene: {
+    flex: 1,
   },
 });

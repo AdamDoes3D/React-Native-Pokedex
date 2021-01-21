@@ -1,6 +1,5 @@
-import { StackScreenProps } from "@react-navigation/stack";
 import * as React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import PokemonDetail from "../components/PokemonDetail";
 
 export default function PokemonDetailScreen({
@@ -20,7 +19,5 @@ export default function PokemonDetailScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
