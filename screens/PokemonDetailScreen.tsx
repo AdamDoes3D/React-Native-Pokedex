@@ -1,9 +1,7 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import * as React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import PokemonDetail from "../components/PokemonDetail";
-
-import { RootStackParamList } from "../types";
 
 export default function PokemonDetailScreen({
   navigation,

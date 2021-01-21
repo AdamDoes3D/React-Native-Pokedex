@@ -66,7 +66,8 @@ export default function TypeDetail({ pokemon }: { pokemon: Pokemon }) {
         {pokemon.types.map((t) => {
           return (
             <Text
-              style={[styles.statColors, typeColor(toTitleCase(t.type.name))]}
+              key={t.type.name}
+              style={[styles.typeColors, typeColor(toTitleCase(t.type.name))]}
             >
               {toTitleCase(t.type.name)}
             </Text>
@@ -90,31 +91,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
-  name: {
-    fontSize: 25,
-    fontWeight: "bold",
-    marginTop: 25,
-  },
   typeContainer: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
   },
-  stat: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  statContainer: {
-    flex: 1,
-    marginBottom: 10,
-  },
-  statNameContainer: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  statColors: {
+  typeColors: {
     backgroundColor: "gray",
     color: "white",
     borderRadius: 3,

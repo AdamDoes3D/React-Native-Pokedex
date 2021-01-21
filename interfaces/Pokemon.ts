@@ -101,37 +101,37 @@ export interface Pokemon {
     };
     versions: {
       "generation-i": {
-        "red-blue": {};
-        yellow: {};
+        "red-blue": { front_default: string };
+        yellow: { front_default: string };
       };
       "generation-ii": {
-        crystal: {};
-        gold: {};
-        silver: {};
+        crystal: { front_default: string };
+        gold: { front_default: string };
+        silver: { front_default: string };
       };
       "generation-iii": {
-        emerald: {};
-        "firered-leafgreen": {};
-        "ruby-sapphire": {};
+        emerald: { front_default: string };
+        "firered-leafgreen": { front_default: string };
+        "ruby-sapphire": { front_default: string };
       };
       "generation-iv": {
-        "diamond-pearl": {};
-        "heartgold-soulsilver": {};
+        "diamond-pearl": { front_default: string };
+        "heartgold-soulsilver": { front_default: string };
         platinum: {};
       };
       "generation-v": {
-        "black-white": {};
+        "black-white": { front_default: string };
       };
       "generation-vi": {
-        "omegaruby-alphasapphire": {};
-        "x-y": {};
+        "omegaruby-alphasapphire": { front_default: string };
+        "x-y": { front_default: string };
       };
       "generation-vii": {
         icons: {};
-        "ultra-sun-ultra-moon": {};
+        "ultra-sun-ultra-moon": { front_default: string };
       };
       "generation-viii": {
-        icons: {};
+        icons: { front_default: string };
       };
     };
   };

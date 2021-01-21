@@ -1,4 +1,7 @@
 import { Pokemon } from "../interfaces/Pokemon";
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs(["Setting a timer"]);
 
 export async function getPokemon(
   loadedPokemon: Pokemon[],

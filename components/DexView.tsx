@@ -4,7 +4,6 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { FlatGrid } from "react-native-super-grid";
 import { useEffect, useState } from "react";
 import { getPokemon } from "../services/pokeAPI";
-
 import { Text, View } from "../components/Themed";
 import { Pokemon } from "../interfaces/Pokemon";
 
@@ -14,7 +13,6 @@ export default function DexView({ navigation }: { navigation: any }) {
 
   function loadDexEntries() {
     getPokemon(pokemon, offset).then((items: Pokemon[]) => {
-      console.log(items);
       setPokemon([...items]);
     });
     setOffset(offset + 10);

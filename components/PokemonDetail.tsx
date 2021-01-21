@@ -4,6 +4,7 @@ import { Pokemon } from "../interfaces/Pokemon";
 import { Text, View } from "./Themed";
 import * as Progress from "react-native-progress";
 import TypeDetail from "./Types";
+import GenerationGallery from "./ImagesByGeneration";
 
 export default function PokemonDetail({ pokemon }: { pokemon: Pokemon }) {
   const statColors = [
@@ -63,11 +64,14 @@ export default function PokemonDetail({ pokemon }: { pokemon: Pokemon }) {
       <Text style={styles.name}>
         {toTitleCase(pokemon.name)} {"#" + String(pokemon.id).padStart(3, "0")}
       </Text>
-      <View>
+      <View style={[{ width: 130, height: 130, backgroundColor: "white" }]}>
         <Image
           style={[{ width: 130, height: 130 }]}
-          source={{ uri: pokemon.sprites.front_default }}
+          source={{
+            uri: pokemon.sprites.other["official-artwork"].front_default,
+          }}
         />
+        {/* <GenerationGallery pokemon={pokemon} /> */}
       </View>
       <TypeDetail pokemon={pokemon} />
       {getAbilities()}
