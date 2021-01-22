@@ -61,7 +61,7 @@ export default function TypeDetail({ pokemon }: { pokemon: Pokemon }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.bold}>{"Type:"}</Text>
+      {/* <Text style={styles.bold}>{"Type:"}</Text> */}
       <View style={styles.typeContainer}>
         {pokemon.types.map((t) => {
           return (

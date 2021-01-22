@@ -3,30 +3,53 @@ import { StyleSheet, Image, Dimensions } from "react-native";
 import { Pokemon } from "../interfaces/Pokemon";
 import { Text, View } from "./Themed";
 import * as Progress from "react-native-progress";
-import TypeDetail from "./Types";
+import TypeDetail from "./PokemonTypes";
 import GenerationGallery from "./ImagesByGeneration";
-import { TabView, SceneMap } from "react-native-tab-view";
-
-const FirstRoute = () => (
-  <View style={[styles.scene, { backgroundColor: "#ff4081" }]} />
-);
-
-const SecondRoute = () => (
-  <View style={[styles.scene, { backgroundColor: "#673ab7" }]} />
-);
-
-const initialLayout = { width: Dimensions.get("window").width };
+import { TabView, SceneMap, TabBar } from "react-native-tab-view";
+import { getSpecies } from "../services/pokeAPI";
+import { useEffect, useState } from "react";
+import { Species } from "../interfaces/Species";
+import PokemonAbout from "./PokemonAbout";
 
 export default function PokemonDetail({ pokemon }: { pokemon: Pokemon }) {
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    { key: "first", title: "First" },
-    { key: "second", title: "Second" },
+  const FirstRoute = () => (
+    <PokemonAbout pokemon={pokemon} species={species}></PokemonAbout>
+  );
+
+  const SecondRoute = () => (
+    <View style={[styles.flex, { alignItems: "center" }]}>{getStats()}</View>
+  );
+
+  const ThirdRoute = () => <View style={[{ backgroundColor: "white" }]} />;
+
+  const initialLayout = { width: Dimensions.get("window").width };
+
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([
+    { key: "first", title: "About" },
+    { key: "second", title: "Stats" },
+    { key: "third", title: "Moves" },
   ]);
 
+  const [species, setSpecies] = useState<Species>();
+
+  useEffect(() => {
+    getSpecies(pokemon.name).then((s) => setSpecies(s));
+    return;
+  }, []);
+
+  const renderTabBar = (props: any) => (
+    <TabBar
+      {...props}
+      stlye={styles.flex}
+      indicatorStyle={{ backgroundColor: "blue" }}
+      style={{ backgroundColor: "gray" }}
+    />
+  );
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
+    third: ThirdRoute,
   });
 
   const statColors = [
@@ -82,35 +105,38 @@ export default function PokemonDetail({ pokemon }: { pokemon: Pokemon }) {
   }
 
   return (
-    <View style={[styles.container]}>
-      <Text style={styles.name}>
-        {toTitleCase(pokemon.name)} {"#" + String(pokemon.id).padStart(3, "0")}
-      </Text>
-      <View style={[{ width: 130, height: 130, backgroundColor: "white" }]}>
-        <Image
-          style={[{ width: 130, height: 130 }]}
-          source={{
-            uri: pokemon.sprites.other["official-artwork"].front_default,
-          }}
-        />
-        {/* <GenerationGallery pokemon={pokemon} /> */}
+    <View style={styles.flex}>
+      <View style={[styles.container]}>
+        <Text style={styles.name}>
+          {toTitleCase(pokemon.name)}{" "}
+          {"#" + String(pokemon.id).padStart(3, "0")}
+        </Text>
+        <View style={[{ width: 130, height: 130, backgroundColor: "white" }]}>
+          <Image
+            style={[{ width: 130, height: 130 }]}
+            source={{
+              uri: pokemon.sprites.other["official-artwork"].front_default,
+            }}
+          />
+          {/* <GenerationGallery pokemon={pokemon} /> */}
+        </View>
+        <TypeDetail pokemon={pokemon} />
       </View>
-      {/* <TabView
-          navigationState={{ index, routes }}
-          renderScene={renderScene}
-          onIndexChange={setIndex}
-          initialLayout={initialLayout}
-        /> */}
-      <TypeDetail pokemon={pokemon} />
-      {getAbilities()}
-      {getStats()}
+      <TabView
+        navigationState={{ index, routes }}
+        renderTabBar={renderTabBar}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={initialLayout}
+        style={{ flex: 3 }}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 2,
     width: "100%",
     height: "100%",
     justifyContent: "space-between",
@@ -148,7 +174,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
     margin: 2,
   },
-  scene: {
+  flex: {
     flex: 1,
+  },
+  flexBasis: {
+    flexBasis: "auto",
   },
 });

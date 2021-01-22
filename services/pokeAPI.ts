@@ -1,5 +1,6 @@
 import { Pokemon } from "../interfaces/Pokemon";
 import { LogBox } from "react-native";
+import { Species } from "../interfaces/Species";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 
@@ -29,4 +30,12 @@ async function convertResultsToPokemon(
   }
   loadedPokemon.sort((x) => x.id);
   return loadedPokemon;
+}
+
+export async function getSpecies(name: string): Promise<Species> {
+  var Pokedex = require("pokedex-promise-v2");
+  var P = new Pokedex();
+
+  var species = await P.getPokemonSpeciesByName(name);
+  return species;
 }
