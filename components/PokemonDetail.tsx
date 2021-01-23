@@ -82,15 +82,6 @@ export default function PokemonDetail({ pokemon }: { pokemon: Pokemon }) {
       );
     });
 
-  const getAbilities = () =>
-    pokemon.abilities.map((a, i) => {
-      return (
-        <View key={a.ability.name}>
-          <Text>{toTitleCase(a.ability.name)}</Text>
-        </View>
-      );
-    });
-
   function toTitleCase(name: string) {
     if (name == "hp") return "HP";
     else {
@@ -105,13 +96,17 @@ export default function PokemonDetail({ pokemon }: { pokemon: Pokemon }) {
   }
 
   return (
-    <View style={styles.flex}>
-      <View style={[styles.container]}>
+    <View style={[styles.flex]}>
+      <View
+        style={[styles.container, { backgroundColor: species?.color.name }]}
+      >
         <Text style={styles.name}>
           {toTitleCase(pokemon.name)}{" "}
           {"#" + String(pokemon.id).padStart(3, "0")}
         </Text>
-        <View style={[{ width: 130, height: 130, backgroundColor: "white" }]}>
+        <View
+          style={[{ width: 130, height: 130, backgroundColor: "transparent" }]}
+        >
           <Image
             style={[{ width: 130, height: 130 }]}
             source={{
@@ -141,7 +136,6 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: "space-between",
     alignItems: "center",
-    opacity: 80,
   },
   bold: {
     fontSize: 16,

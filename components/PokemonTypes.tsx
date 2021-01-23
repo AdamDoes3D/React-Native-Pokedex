@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: "space-between",
     alignItems: "center",
-    opacity: 80,
+    backgroundColor: "transparent",
   },
   bold: {
     fontSize: 16,
@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
+    backgroundColor: "transparent",
   },
   typeColors: {
     backgroundColor: "gray",

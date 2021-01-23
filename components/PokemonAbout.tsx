@@ -1,6 +1,5 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { round } from "react-native-reanimated";
 import { Pokemon } from "../interfaces/Pokemon";
 import { Species } from "../interfaces/Species";
 import { Text, View } from "./Themed";
@@ -17,21 +16,19 @@ export default function PokemonAbout({
       if (pokemon.abilities[i].is_hidden)
         return (
           <Text
-            style={[styles.padText, { fontStyle: "italic" }]}
+            style={[{ fontStyle: "italic", color: "#585858" }]}
             key={a.ability.name}
           >
             {toTitleCase(a.ability.name)}
           </Text>
         );
       else
-        return (
-          <Text style={styles.padText}>{toTitleCase(a.ability.name)}</Text>
-        );
+        return <Text key={a.ability.name}>{toTitleCase(a.ability.name)}</Text>;
     });
 
   function toTitleCase(name: string) {
     var titleCase = name.charAt(0).toUpperCase() + name.slice(1);
-    return titleCase;
+    return removeDashSplitter(titleCase);
   }
 
   function heightConverter(height: number) {
@@ -49,6 +46,11 @@ export default function PokemonAbout({
 
   function removeLineBreak(s: string) {
     var s = s.split("\n").join(" ");
+    return s;
+  }
+
+  function removeDashSplitter(s: string) {
+    var s = s.split("-").join(" ");
     return s;
   }
 
@@ -82,7 +84,7 @@ export default function PokemonAbout({
 const styles = StyleSheet.create({
   aboutInfo: {
     fontSize: 16,
-    color: "gray",
+    color: "#888888",
   },
   gridContainer: {
     display: "flex",
