@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet } from "react-native";
+import { round } from "react-native-reanimated";
 import { Pokemon } from "../interfaces/Pokemon";
 import { Species } from "../interfaces/Species";
 import { Text, View } from "./Themed";
@@ -13,11 +14,19 @@ export default function PokemonAbout({
 }) {
   const getAbilities = () =>
     pokemon.abilities.map((a, i) => {
-      return (
-        <View key={a.ability.name}>
-          <Text>{toTitleCase(a.ability.name)}</Text>
-        </View>
-      );
+      if (pokemon.abilities[i].is_hidden)
+        return (
+          <Text
+            style={[styles.padText, { fontStyle: "italic" }]}
+            key={a.ability.name}
+          >
+            {toTitleCase(a.ability.name)}
+          </Text>
+        );
+      else
+        return (
+          <Text style={styles.padText}>{toTitleCase(a.ability.name)}</Text>
+        );
     });
 
   function toTitleCase(name: string) {
@@ -38,22 +47,33 @@ export default function PokemonAbout({
     return pounds.toFixed(1) + "lbs";
   }
 
+  function removeLineBreak(s: string) {
+    var s = s.split("\n").join(" ");
+    return s;
+  }
+
   return (
     <View>
-      <Text>{species?.flavor_text_entries[0].flavor_text}</Text>
-      <Text style={styles.aboutInfo}>
-        {"Height: "}
-        {heightConverter(pokemon.height)}
-        {" (" + (pokemon.height / 10).toFixed(1) + "m)"}
+      <Text style={styles.padText}>
+        {removeLineBreak(species?.flavor_text_entries[0].flavor_text ?? "")}
       </Text>
-      <Text>
-        {"Weight: "}
-        {weightConverter(pokemon.weight)}
-        {" (" + (pokemon.weight / 10).toFixed(1) + "kg)"}
-      </Text>
-      <View>
-        <Text>{"Abilities:"}</Text>
-        {getAbilities()}
+      <View style={styles.gridContainer}>
+        <View style={[styles.columnContainer]}>
+          <Text style={[styles.aboutInfo]}>{"Height"}</Text>
+          <Text style={[styles.aboutInfo]}>{"Weight"}</Text>
+          <Text style={[styles.aboutInfo]}>{"Abilities"}</Text>
+        </View>
+        <View style={[styles.columnContainer, { flex: 2 }]}>
+          <View style={styles.rowContainer}>
+            <Text>{heightConverter(pokemon.height)}</Text>
+            <Text>{" (" + (pokemon.height / 10).toFixed(1) + "m)"}</Text>
+          </View>
+          <View style={styles.rowContainer}>
+            <Text>{weightConverter(pokemon.weight)}</Text>
+            <Text>{" (" + (pokemon.weight / 10).toFixed(1) + "kg)"}</Text>
+          </View>
+          <View style={styles.rowContainer}>{getAbilities()}</View>
+        </View>
       </View>
     </View>
   );
@@ -63,5 +83,22 @@ const styles = StyleSheet.create({
   aboutInfo: {
     fontSize: 16,
     color: "gray",
+  },
+  gridContainer: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  rowContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    paddingVertical: 5,
+  },
+  columnContainer: {
+    flexDirection: "column",
+    justifyContent: "space-evenly",
+    paddingHorizontal: 20,
+  },
+  padText: {
+    padding: 5,
   },
 });
