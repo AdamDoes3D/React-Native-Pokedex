@@ -25,18 +25,31 @@ export default function PokemonAbout({
     return titleCase;
   }
 
+  function heightConverter(height: number) {
+    var realFeet = (height * 3.93700787) / 12;
+    var feet = Math.floor(realFeet);
+    var inches = Math.round((realFeet - feet) * 12);
+    let inchFeet: string = feet + "ft " + inches + "in";
+    return inchFeet;
+  }
+
+  function weightConverter(weight: number) {
+    var pounds = (weight / 10) * 2.205;
+    return pounds.toFixed(1) + "lbs";
+  }
+
   return (
     <View>
       <Text>{species?.flavor_text_entries[0].flavor_text}</Text>
-      <Text>
-        {"Height:"}
-        {(pokemon.height / 10).toFixed(1)}
-        {" m"}
+      <Text style={styles.aboutInfo}>
+        {"Height: "}
+        {heightConverter(pokemon.height)}
+        {" (" + (pokemon.height / 10).toFixed(1) + "m)"}
       </Text>
       <Text>
-        {"Weight:"}
-        {(pokemon.weight / 10).toFixed(1)}
-        {" kg"}
+        {"Weight: "}
+        {weightConverter(pokemon.weight)}
+        {" (" + (pokemon.weight / 10).toFixed(1) + "kg)"}
       </Text>
       <View>
         <Text>{"Abilities:"}</Text>
@@ -45,3 +58,10 @@ export default function PokemonAbout({
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  aboutInfo: {
+    fontSize: 16,
+    color: "gray",
+  },
+});
