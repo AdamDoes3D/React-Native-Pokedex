@@ -12,6 +12,53 @@ import { Species } from "../interfaces/Species";
 import PokemonAbout from "./PokemonAbout";
 
 export default function PokemonDetail({ pokemon }: { pokemon: Pokemon }) {
+  function typeColor(type: string | null) {
+    switch (type) {
+      case "Normal":
+        return { backgroundColor: "#e1e1d1" };
+      case "Fighting":
+        return { backgroundColor: "#e27a74" };
+      case "Grass":
+        return { backgroundColor: "#aede96" };
+      case "Poison":
+        return { backgroundColor: "#cd84cd" };
+      case "Fire":
+        return { backgroundColor: "#f6b282" };
+      case "Flying":
+        return { backgroundColor: "#cabcf6" };
+      case "Water":
+        return { backgroundColor: "#a4bcf6" };
+      case "Electric":
+        return { backgroundColor: "#fae282" };
+      case "Ground":
+        return { backgroundColor: "#ecd9a4" };
+      case "Psychic":
+        return { backgroundColor: "#fa9ab7" };
+      case "Rock":
+        return { backgroundColor: "#d9c982" };
+      case "Ice":
+        return { backgroundColor: "#c1e7e7" };
+      case "Bug":
+        return { backgroundColor: "#d7e468" };
+      case "Dragon":
+        return { backgroundColor: "#a987fa" };
+      case "Ghost":
+        return { backgroundColor: "#a898c3" };
+      case "Dark":
+        return { backgroundColor: "#b29887" };
+      case "Steel":
+        return { backgroundColor: "#d4d4e2" };
+      case "Fairy":
+        return { backgroundColor: "#f4c1cd" };
+      case "???":
+        return { backgroundColor: "#a4c6bc" };
+      case null:
+        return { backgroundColor: "f5f5f5", borderWidth: 0 };
+      default:
+        return { backgroundColor: "white" };
+    }
+  }
+
   const FirstRoute = () => (
     <PokemonAbout pokemon={pokemon} species={species}></PokemonAbout>
   );
@@ -98,7 +145,10 @@ export default function PokemonDetail({ pokemon }: { pokemon: Pokemon }) {
   return (
     <View style={[styles.flex, { backgroundColor: "transparent" }]}>
       <View
-        style={[styles.container, { backgroundColor: species?.color.name }]}
+        style={[
+          styles.container,
+          typeColor(toTitleCase(pokemon.types[0].type.name)),
+        ]}
       >
         <Text style={styles.name}>
           {toTitleCase(pokemon.name)}{" "}

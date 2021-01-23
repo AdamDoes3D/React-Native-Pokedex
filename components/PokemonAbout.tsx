@@ -28,7 +28,7 @@ export default function PokemonAbout({
 
   function toTitleCase(name: string) {
     var titleCase = name.charAt(0).toUpperCase() + name.slice(1);
-    return removeDashSplitter(titleCase);
+    return titleCase;
   }
 
   function heightConverter(height: number) {
@@ -46,12 +46,12 @@ export default function PokemonAbout({
 
   function removeLineBreak(s: string) {
     var s = s.split("\n").join(" ");
-    return s;
+    return toTitleCase(s);
   }
 
   function removeDashSplitter(s: string) {
     var s = s.split("-").join(" ");
-    return s;
+    return toTitleCase(s);
   }
 
   return (
@@ -91,13 +91,12 @@ export default function PokemonAbout({
             <Text></Text>
           </View>
           <View style={styles.rowContainer}>
-            <Text>{toTitleCase(species?.egg_groups[0].name ?? "")}</Text>
-            <Text>{toTitleCase(species?.egg_groups[1].name ?? "")}</Text>
+            {species?.egg_groups.map((g) => {
+              return <Text key={g.name}>{toTitleCase(g.name)}</Text>;
+            })}
           </View>
           <View style={styles.rowContainer}>
-            <Text>
-              {toTitleCase(removeDashSplitter(species?.growth_rate.name ?? ""))}
-            </Text>
+            <Text>{removeDashSplitter(species?.growth_rate.name ?? "")}</Text>
           </View>
         </View>
       </View>
