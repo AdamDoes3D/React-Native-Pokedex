@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 import { Pokemon } from "../interfaces/Pokemon";
 import { Species } from "../interfaces/Species";
 import { Text, View } from "./Themed";
+import * as Progress from "react-native-progress";
 
 export default function PokemonAbout({
   pokemon,
@@ -58,7 +59,10 @@ export default function PokemonAbout({
     <View style={{ backgroundColor: "#F5F5F5" }}>
       <Text style={[styles.padText, styles.bold]}>{"Description"}</Text>
       <Text style={styles.padText}>
-        {removeLineBreak(species?.flavor_text_entries[0].flavor_text ?? "")}
+        {removeLineBreak(
+          species?.flavor_text_entries.filter((x) => x.language.name == "en")[0]
+            .flavor_text ?? ""
+        )}
       </Text>
       <View style={styles.gridContainer}>
         <View style={[styles.columnContainer]}>
@@ -86,9 +90,23 @@ export default function PokemonAbout({
           <Text style={[styles.aboutInfo]}>{"Growth Rate"}</Text>
         </View>
         <View style={[styles.columnContainer, { flex: 2 }]}>
-          <View style={styles.rowContainer}>
-            <Text></Text>
-            <Text></Text>
+          <View style={[styles.rowContainer, { paddingVertical: 0 }]}>
+            <Progress.Bar
+              progress={(species?.gender_rate ?? 0) / 8}
+              width={175}
+              height={10}
+              color="#FF77DD"
+              unfilledColor="#3355FF"
+              borderColor="black"
+            ></Progress.Bar>
+          </View>
+          <View style={[styles.rowContainer, { paddingBottom: 10 }]}>
+            <Text style={{ color: "#FF77DD" }}>
+              Female {((species?.gender_rate ?? 0) / 8) * 100}%
+            </Text>
+            <Text style={{ color: "#3355FF" }}>
+              Male {((8 - (species?.gender_rate ?? 0)) / 8) * 100}%
+            </Text>
           </View>
           <View style={styles.rowContainer}>
             {species?.egg_groups.map((g) => {
@@ -96,7 +114,7 @@ export default function PokemonAbout({
             })}
           </View>
           <View style={styles.rowContainer}>
-            <Text>{removeDashSplitter(species?.growth_rate.name ?? "")}</Text>
+            <Text>{toTitleCase(species?.growth_rate.name ?? "")}</Text>
           </View>
         </View>
       </View>

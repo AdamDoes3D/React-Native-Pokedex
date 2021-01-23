@@ -187,10 +187,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
-  bold: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
   name: {
     fontSize: 25,
     fontWeight: "bold",
@@ -209,19 +205,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  statColors: {
-    backgroundColor: "gray",
-    color: "white",
-    borderRadius: 3,
-    borderColor: "black",
-    borderWidth: 1,
-    paddingHorizontal: 2,
-    margin: 2,
-  },
   flex: {
     flex: 1,
-  },
-  flexBasis: {
-    flexBasis: "auto",
   },
 });
