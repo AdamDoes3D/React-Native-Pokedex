@@ -55,7 +55,8 @@ export default function PokemonAbout({
   }
 
   return (
-    <View>
+    <View style={{ backgroundColor: "#F5F5F5" }}>
+      <Text style={[styles.padText, styles.bold]}>{"Description"}</Text>
       <Text style={styles.padText}>
         {removeLineBreak(species?.flavor_text_entries[0].flavor_text ?? "")}
       </Text>
@@ -77,6 +78,29 @@ export default function PokemonAbout({
           <View style={styles.rowContainer}>{getAbilities()}</View>
         </View>
       </View>
+      <Text style={[styles.padText, styles.bold]}>{"Breeding"}</Text>
+      <View style={styles.gridContainer}>
+        <View style={[styles.columnContainer]}>
+          <Text style={[styles.aboutInfo]}>{"Gender"}</Text>
+          <Text style={[styles.aboutInfo]}>{"Egg Groups"}</Text>
+          <Text style={[styles.aboutInfo]}>{"Growth Rate"}</Text>
+        </View>
+        <View style={[styles.columnContainer, { flex: 2 }]}>
+          <View style={styles.rowContainer}>
+            <Text></Text>
+            <Text></Text>
+          </View>
+          <View style={styles.rowContainer}>
+            <Text>{toTitleCase(species?.egg_groups[0].name ?? "")}</Text>
+            <Text>{toTitleCase(species?.egg_groups[1].name ?? "")}</Text>
+          </View>
+          <View style={styles.rowContainer}>
+            <Text>
+              {toTitleCase(removeDashSplitter(species?.growth_rate.name ?? ""))}
+            </Text>
+          </View>
+        </View>
+      </View>
     </View>
   );
 }
@@ -89,18 +113,26 @@ const styles = StyleSheet.create({
   gridContainer: {
     display: "flex",
     flexDirection: "row",
+    paddingVertical: 10,
+    backgroundColor: "transparent",
   },
   rowContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
     paddingVertical: 5,
+    backgroundColor: "transparent",
   },
   columnContainer: {
     flexDirection: "column",
     justifyContent: "space-evenly",
     paddingHorizontal: 20,
+    backgroundColor: "transparent",
   },
   padText: {
     padding: 5,
+  },
+  bold: {
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });

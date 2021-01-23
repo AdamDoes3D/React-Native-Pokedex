@@ -96,7 +96,7 @@ export default function PokemonDetail({ pokemon }: { pokemon: Pokemon }) {
   }
 
   return (
-    <View style={[styles.flex]}>
+    <View style={[styles.flex, { backgroundColor: "transparent" }]}>
       <View
         style={[styles.container, { backgroundColor: species?.color.name }]}
       >
