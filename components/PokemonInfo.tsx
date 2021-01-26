@@ -4,8 +4,13 @@ import { Pokemon } from "../interfaces/Pokemon";
 import { Species } from "../interfaces/Species";
 import { Text, View } from "./Themed";
 import * as Progress from "react-native-progress";
+import {
+  toTitleCase,
+  removeDashSplitter,
+  removeLineBreak,
+} from "../stringExtensions";
 
-export default function PokemonAbout({
+export default function PokemonInfo({
   pokemon,
   species,
 }: {
@@ -27,11 +32,6 @@ export default function PokemonAbout({
         return <Text key={a.ability.name}>{toTitleCase(a.ability.name)}</Text>;
     });
 
-  function toTitleCase(name: string) {
-    var titleCase = name.charAt(0).toUpperCase() + name.slice(1);
-    return titleCase;
-  }
-
   function heightConverter(height: number) {
     var realFeet = (height * 3.93700787) / 12;
     var feet = Math.floor(realFeet);
@@ -45,18 +45,8 @@ export default function PokemonAbout({
     return pounds.toFixed(1) + "lbs";
   }
 
-  function removeLineBreak(s: string) {
-    var s = s.split("\n").join(" ");
-    return toTitleCase(s);
-  }
-
-  function removeDashSplitter(s: string) {
-    var s = s.split("-").join(" ");
-    return toTitleCase(s);
-  }
-
   return (
-    <View style={{ backgroundColor: "#F5F5F5" }}>
+    <View style={{ backgroundColor: "transparent" }}>
       <Text style={[styles.padText, styles.bold]}>{"Description"}</Text>
       <Text style={styles.padText}>
         {removeLineBreak(

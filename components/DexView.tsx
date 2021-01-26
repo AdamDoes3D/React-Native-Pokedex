@@ -15,7 +15,12 @@ export default function DexView({ navigation }: { navigation: any }) {
     getPokemon(pokemon, offset).then((items: Pokemon[]) => {
       setPokemon([...items]);
     });
-    setOffset(offset + 10);
+    setOffset(offset + 20);
+  }
+
+  function toTitleCase(name: string) {
+    var titleCase = name.charAt(0).toUpperCase() + name.slice(1);
+    return titleCase;
   }
 
   useEffect(() => {
@@ -61,7 +66,7 @@ export default function DexView({ navigation }: { navigation: any }) {
                 style={styles.image}
               ></Image>
             </ImageBackground>
-            <Text style={styles.itemName}>{item.name}</Text>
+            <Text style={styles.itemName}>{toTitleCase(item.name)}</Text>
           </TouchableOpacity>
         )}
       />

@@ -4,6 +4,12 @@ import { Species } from "../interfaces/Species";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 
+var options = {
+  protocol: "https",
+  cacheLimit: 100 * 1000, // 100s
+  timeout: 5 * 1000, // 5s
+};
+
 export async function getPokemon(
   loadedPokemon: Pokemon[],
   offset: number
@@ -12,7 +18,7 @@ export async function getPokemon(
   var P = new Pokedex();
 
   var interval = {
-    limit: 10,
+    limit: 20,
     offset: offset,
   };
   var pokemonList = await P.getPokemonsList(interval);

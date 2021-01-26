@@ -9,7 +9,9 @@ import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { getSpecies } from "../services/pokeAPI";
 import { useEffect, useState } from "react";
 import { Species } from "../interfaces/Species";
-import PokemonAbout from "./PokemonAbout";
+import PokemonInfo from "./PokemonInfo";
+import PokemonMoves from "./PokemonMoves";
+import { toTitleCase, removeDashSplitter } from "../stringExtensions";
 
 export default function PokemonDetail({ pokemon }: { pokemon: Pokemon }) {
   function typeColor(type: string | null) {
@@ -60,20 +62,20 @@ export default function PokemonDetail({ pokemon }: { pokemon: Pokemon }) {
   }
 
   const FirstRoute = () => (
-    <PokemonAbout pokemon={pokemon} species={species}></PokemonAbout>
+    <PokemonInfo pokemon={pokemon} species={species}></PokemonInfo>
   );
 
   const SecondRoute = () => (
     <View style={[styles.flex, { alignItems: "center" }]}>{getStats()}</View>
   );
 
-  const ThirdRoute = () => <View style={[{ backgroundColor: "white" }]} />;
+  const ThirdRoute = () => <PokemonMoves pokemon={pokemon}></PokemonMoves>;
 
   const initialLayout = { width: Dimensions.get("window").width };
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([
-    { key: "first", title: "About" },
+    { key: "first", title: "Info" },
     { key: "second", title: "Stats" },
     { key: "third", title: "Moves" },
   ]);
@@ -128,19 +130,6 @@ export default function PokemonDetail({ pokemon }: { pokemon: Pokemon }) {
         </View>
       );
     });
-
-  function toTitleCase(name: string) {
-    if (name == "hp") return "HP";
-    else {
-      var titleCase = name.charAt(0).toUpperCase() + name.slice(1);
-      return titleCase;
-    }
-  }
-
-  function removeDashSplitter(s: string) {
-    var s = s.split("-").join(" ");
-    return s;
-  }
 
   return (
     <View style={[styles.flex, { backgroundColor: "transparent" }]}>
@@ -199,13 +188,16 @@ const styles = StyleSheet.create({
   statContainer: {
     flex: 1,
     marginBottom: 10,
+    backgroundColor: "transparent",
   },
   statNameContainer: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
+    backgroundColor: "transparent",
   },
   flex: {
     flex: 1,
+    backgroundColor: "transparent",
   },
 });
